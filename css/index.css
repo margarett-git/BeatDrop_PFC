@@ -1,0 +1,41 @@
+/* index.css */
+@import url('global.css');
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #6c63ff, #4b45c6);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+.hero h2 { font-size: 2.5rem; margin-bottom: 15px; }
+.hero p { font-size: 1.1rem; margin-bottom: 25px; }
+.btn-principal {
+  display: inline-block;
+  background: white;
+  color: #6c63ff;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-principal:hover {
+  background: #eee;
+  transform: scale(1.05);
+}
+
+/* SECCIONES GENERALES DE INDEX */
+.novedades, .artistas, .ofertas {
+  background: #f9f7f6;
+  padding: 50px 20px;
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  border-radius: 10px;
+}
+.novedades h2, .artistas h2, .ofertas h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #1c1c1c;
+}

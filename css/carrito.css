@@ -1,0 +1,251 @@
+/* carrito.css */
+@import url('global.css');
+
+.carrito-container {
+    max-width: 750px; /* Contenedor más estrecho */
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.carrito-container h2 {
+    text-align: left; /* Alineado a la izquierda para ahorrar espacio vertical */
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+/* Lista de productos */
+#carrito-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Espacio mínimo entre productos */
+}
+
+/* 1. La fila del producto */
+.carrito-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 10px 15px;
+    border-radius: 8px;
+    /* Transición suave para todos los cambios */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: default;
+}
+
+/* Efecto Hover: Se eleva y resalta el borde */
+.carrito-item:hover {
+    transform: translateY(-3px); /* Pequeño salto hacia arriba */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+    border-color: #ff7a00; /* Resalta con el naranja de MusicStore */
+    background-color: #f9f9f9;
+}
+
+/* 2. La imagen del álbum */
+.carrito-item img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+/* Información del álbum */
+.carrito-info {
+    flex: 2;
+    display: flex;
+    flex-direction: row; /* Título y precio en la misma línea */
+    align-items: center;
+    gap: 15px;
+}
+
+.carrito-info h4 {
+    margin: 0;
+    font-size: 0.9rem; /* Fuente pequeña y clara */
+    color: #222;
+    font-weight: 600;
+    min-width: 200px; /* Evita que el título empuje demasiado al precio */
+}
+
+.carrito-info p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Controles y precio */
+.carrito-controls {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+.precio-unitario {
+    font-weight: bold;
+    color: #444;
+    font-size: 0.9rem;
+}
+
+/* 3. El botón de eliminar (Minimalista pero reactivo) */
+.carrito-controls button {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    color: #888;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover en botón: fondo rojo y texto blanco */
+.carrito-controls button:hover {
+    background-color: #ff4c4c;
+    border-color: #ff4c4c;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(255, 76, 76, 0.3);
+}
+
+/* 4. Botón "Finalizar Compra" principal */
+#btn-finalizar {
+    background-color: #ff7a00; /* Naranja corporativo */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(255, 122, 0, 0.2);
+}
+
+#btn-finalizar:hover {
+    background-color: #e66e00;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(255, 122, 0, 0.4);
+}
+
+/* Total del carrito compacto */
+#carrito-total {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #f8f8f8;
+    color: #333;
+    text-align: right;
+    border-top: 2px solid #eee;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 600px) {
+    .carrito-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+    .carrito-info h4 {
+        min-width: auto;
+    }
+}
+
+/* Estilo para los inputs del formulario de entrega */
+#envio-form input:focus {
+    border-color: #ff7a00; /* Naranja MusicStore */
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 122, 0, 0.3);
+}
+
+.btn-pagar:hover {
+    background-color: #e66e00; /* Un naranja más oscuro al pasar el ratón */
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   FORMULARIO DE ENTREGA VISUAL (carrito.css)
+   ========================================= */
+
+#formulario-entrega {
+    margin-top: 40px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    animation: slideUp 0.4s ease; /* Efecto de aparición suave */
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#formulario-entrega h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #111;
+    font-size: 1.4rem;
+    border-left: 4px solid #ff7a00; /* Detalle naranja MusicStore */
+    padding-left: 15px;
+}
+
+#envio-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 550px;
+}
+
+/* Estilo común para todos los inputs */
+#envio-form input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* Efecto al escribir en los campos */
+#envio-form input:focus {
+    border-color: #ff7a00;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.15);
+    background-color: #fff;
+}
+
+/* Fila para Ciudad y CP */
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row input:first-child { flex: 2; } /* Ciudad más ancha */
+.form-row input:last-child { flex: 1; }  /* CP más estrecho */
+
+/* Botón de Pago Final */
+.btn-pagar {
+    background-color: #28a745; /* Verde éxito */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+.btn-pagar:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+}
