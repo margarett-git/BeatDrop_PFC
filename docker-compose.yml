@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Servidor Web con PHP 8.2 y Apache
+  web:
+    build: .  # Esto le dice a Docker que use el Dockerfile de esta carpeta
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html/
+    depends_on:
+      - db
+
+  # Base de Datos MySQL 8.0
+  db:
+    image: mysql:8.0
+    container_name: beatdrop_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: beatdrop_db
+      MYSQL_USER: beatdrop_user       
+      MYSQL_PASSWORD: password         
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
