@@ -28,11 +28,7 @@ try {
     <nav>
         <a href="index.php">Inicio</a>
         <a href="albumes.php" class="activo">Álbumes</a>
-<<<<<<< HEAD
         <a href="carrito.html">Carrito 🛒</a>
-=======
-        <a href="carrito.html">Carrito</a>
->>>>>>> 84768942f14aeaeea623fdb82e99a1e81cab1a3d
         <span id="usuario-header" style="margin-left: 15px; font-weight: bold; color: #ff7a00;"></span>
     </nav>
 
@@ -42,11 +38,7 @@ try {
 <section class="catalogo-container">
     <section class="catalogo">
 
-<<<<<<< HEAD
         <h2>📀 CATÁLOGO COMPLETO</h2>
-=======
-        
->>>>>>> 84768942f14aeaeea623fdb82e99a1e81cab1a3d
 
         <aside class="filtros">
             <div class="filtro-grupo">
