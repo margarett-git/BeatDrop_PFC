@@ -35,7 +35,7 @@ try {
     <nav>
         <a href="index.php" class="activo">Inicio</a>
         <a href="albumes.php">Álbumes</a>
-        <a href="carrito.html">Carrito 🛒</a>
+        <a href="carrito.html">Carrito</a>
         <span id="usuario-header" style="margin-left: 15px; font-weight: bold; color: #ff7a00;"></span>
     </nav>
     <button id="loginBtn">Iniciar sesión / Crear cuenta</button>
@@ -43,7 +43,7 @@ try {
 
 <main>
     <section class="catalogo">
-        <h2>🎤 ARTISTAS DESTACADOS</h2>
+        <h2>Artistas destacados</h2>
         <section class="cards">
             <?php foreach ($destacados as $prod): ?>
                 <article>
@@ -62,7 +62,7 @@ try {
     </section>
 
     <section class="novedades">
-      <h2>🆕 Novedades</h2>
+      <h2>Novedades</h2>
        <section class="cards">
             <?php foreach ($novedades as $prod): ?>
                 <article>
@@ -81,7 +81,7 @@ try {
     </section>
 
     <section class="catalogo">
-        <h2>💰 Ofertas</h2>
+        <h2>Ofertas</h2>
         <section class="cards">
             <?php foreach ($ofertas as $prod): 
                 // Simulamos un precio antiguo inflándolo un 20% para mantener vuestro diseño original
@@ -150,6 +150,16 @@ try {
 <script src="js/albumes-carrito.js"></script>
 <script src="js/carrito.js"></script> 
 
+<div id="chatbot-preview" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: sans-serif;">
+    <div style="background: #ff7a00; color: white; padding: 15px; border-radius: 10px 10px 0 0; width: 250px; font-weight: bold;">
+        Asistente BeatDrop
+    </div>
+    <div style="background: white; border: 1px solid #ccc; padding: 15px; width: 250px; height: 150px; font-size: 14px;">
+        <p><strong>BeatBot:</strong> ¡Hola! Soy tu guía musical. ¿Cuál es tu presupuesto para hoy?</p>
+        <p style="color: #777; font-style: italic;">Escribiendo...</p>
+    </div>
+    <input type="text" placeholder="Pregúntame algo..." style="width: 250px; padding: 10px; border: 1px solid #ccc; border-top: none;">
+</div>
 
 </body>
 </html>
