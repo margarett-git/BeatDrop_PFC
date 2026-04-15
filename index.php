@@ -27,6 +27,7 @@ try {
     <title>BeatDrop | Inicio</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/albumes.css">
+    <link rel="stylesheet" href="css/chatbot.css">
 </head>
 <body>
 
@@ -135,9 +136,9 @@ try {
     <div class="footer-contacto">
       <h4>Contacto</h4>
       <div class="contact-box">
-        <p>📍 Calle Música 123, Madrid</p>
-        <p>📞 +34 912 345 678</p>
-        <p>✉️ info@beatdrop.es</p>
+        <p>Calle Música 123, Madrid</p>
+        <p>+34 912 345 678</p>
+        <p>info@beatdrop.es</p>
       </div>
     </div>
   </div>
@@ -149,17 +150,20 @@ try {
 <script src="js/login-modal.js"></script>
 <script src="js/albumes-carrito.js"></script>
 <script src="js/carrito.js"></script> 
+<script src="js/menu.js"></script>
 
-<div id="chatbot-preview" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: sans-serif;">
-    <div style="background: #ff7a00; color: white; padding: 15px; border-radius: 10px 10px 0 0; width: 250px; font-weight: bold;">
-        Asistente BeatDrop
+<!-- CHATBOT -->
+<button id="chat-abrir">BeatBot</button>
+
+<div id="chat-ventana">
+    <div id="chat-cabecera">
+        <span>Asistente BeatDrop</span>
+        <button id="chat-cerrar">&times;</button>
     </div>
-    <div style="background: white; border: 1px solid #ccc; padding: 15px; width: 250px; height: 150px; font-size: 14px;">
-        <p><strong>BeatBot:</strong> ¡Hola! Soy tu guía musical. ¿Cuál es tu presupuesto para hoy?</p>
-        <p style="color: #777; font-style: italic;">Escribiendo...</p>
-    </div>
-    <input type="text" placeholder="Pregúntame algo..." style="width: 250px; padding: 10px; border: 1px solid #ccc; border-top: none;">
+    <div id="chat-mensajes"></div>
 </div>
+
+<script src="js/chatbot.js"></script>
 
 </body>
 </html>

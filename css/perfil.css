@@ -1,0 +1,140 @@
+/* css/perfil.css */
+
+.perfil-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.perfil-card {
+    background: #1a1a1a;
+    border-radius: 14px;
+    padding: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.perfil-avatar {
+    font-size: 56px;
+    flex-shrink: 0;
+}
+
+.perfil-datos h2 {
+    color: white;
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+
+.perfil-datos p {
+    color: #aaa;
+    font-size: 0.95rem;
+    margin: 3px 0;
+}
+
+.perfil-datos .rol-badge {
+    display: inline-block;
+    background: #ff7a00;
+    color: white;
+    font-size: 0.75rem;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-top: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.perfil-seccion h3 {
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #ff7a00;
+    display: inline-block;
+}
+
+.tabla-pedidos {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.tabla-pedidos th {
+    background: #ff7a00;
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.tabla-pedidos th:first-child { border-radius: 8px 0 0 0; }
+.tabla-pedidos th:last-child  { border-radius: 0 8px 0 0; }
+
+.tabla-pedidos td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #2a2a2a;
+    color: #ccc;
+    background: #1a1a1a;
+}
+
+.tabla-pedidos tr:last-child td { border-bottom: none; }
+.tabla-pedidos tr:hover td { background: #222; }
+
+.estado-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.estado-pendiente { background: #333;    color: #ffcc00; }
+.estado-simulado  { background: #1a3a2a; color: #4caf50; }
+.estado-enviado   { background: #1a2a3a; color: #4a9eff; }
+
+.sin-pedidos {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    color: #666;
+}
+
+.sin-pedidos p { margin-bottom: 16px; }
+
+.btn-ir-tienda {
+    display: inline-block;
+    background: #ff7a00;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn-ir-tienda:hover { background: #e06900; }
+
+.btn-cerrar-sesion {
+    background: #2a2a2a;
+    color: #ff4c4c;
+    border: 1px solid #ff4c4c;
+    padding: 9px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background 0.2s;
+    margin-top: 20px;
+}
+
+.btn-cerrar-sesion:hover {
+    background: #ff4c4c;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .perfil-card { flex-direction: column; text-align: center; }
+    .tabla-pedidos th, .tabla-pedidos td { padding: 8px; font-size: 0.8rem; }
+}

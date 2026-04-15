@@ -1,0 +1,273 @@
+// js/chatbot.js
+// BeatBot "Lara" - Asistente virtual de BeatDrop
+
+const catalogoBot = [
+    { nombre: 'Future – I Never Liked You',                     precio: 25, genero: 'Hip-Hop',     formato: 'Vinilo',   img: 'img/future-album.jpg' },
+    { nombre: 'Young Thug – Business is Business',              precio: 28, genero: 'Hip-Hop',     formato: 'Vinilo',   img: 'img/youngthug-album.jpg' },
+    { nombre: 'Drake – Honestly, Nevermind',                    precio: 26, genero: 'Hip-Hop',     formato: 'Vinilo',   img: 'img/drake-album.jpg' },
+    { nombre: 'Kendrick Lamar – Mr. Morale & The Big Steppers', precio: 30, genero: 'Hip-Hop',     formato: 'Vinilo',   img: 'img/kendrick-album.jpg' },
+    { nombre: 'Tems – For Broken Ears',                         precio: 20, genero: 'R&B',         formato: 'CD',       img: 'img/tems-album.jpg' },
+    { nombre: 'Billie Eilish – Happier Than Ever',              precio: 27, genero: 'Pop',         formato: 'Cassette', img: 'img/billie-album.jpg' },
+    { nombre: 'Ariana Grande – Positions',                      precio: 22, genero: 'Pop',         formato: 'CD',       img: 'img/ariana-album.jpg' },
+    { nombre: 'Taylor Swift – Midnights',                       precio: 24, genero: 'Pop',         formato: 'CD',       img: 'img/taylor-album.jpg' },
+    { nombre: 'Foo Fighters – Medicine at Midnight',            precio: 29, genero: 'Rock',        formato: 'Vinilo',   img: 'img/foofighters-album.jpg' },
+    { nombre: 'Miles Davis – Kind of Blue',                     precio: 20, genero: 'Jazz',        formato: 'CD',       img: 'img/miles-album.jpg' },
+    { nombre: 'Daft Punk – Random Access Memories',             precio: 32, genero: 'Electrónica', formato: 'Vinilo',   img: 'img/daftpunk-album.jpg' },
+    { nombre: 'Metallica – The Black Album',                    precio: 25, genero: 'Metal',       formato: 'CD',       img: 'img/metallica-album.jpg' },
+    { nombre: 'Bob Marley – Legend',                            precio: 27, genero: 'Reggae',      formato: 'Vinilo',   img: 'img/bobmarley-album.jpg' },
+    { nombre: 'B.B. King – Live at the Regal',                  precio: 22, genero: 'Blues',       formato: 'CD',       img: 'img/bbking-album.jpg' },
+];
+
+let respuestas = { nombre: null, presupuesto: null, genero: null, formato: null };
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const chatVentana  = document.getElementById('chat-ventana');
+    const chatMensajes = document.getElementById('chat-mensajes');
+    const btnAbrir     = document.getElementById('chat-abrir');
+    const btnCerrar    = document.getElementById('chat-cerrar');
+
+    btnAbrir.addEventListener('click', () => {
+        const abierto = chatVentana.style.display === 'flex';
+        if (abierto) {
+            chatVentana.style.display = 'none';
+        } else {
+            chatVentana.style.display = 'flex';
+            chatMensajes.scrollTop = chatMensajes.scrollHeight;
+        }
+    });
+
+    btnCerrar.addEventListener('click', () => {
+        chatVentana.style.display = 'none';
+    });
+
+    iniciarConversacion();
+
+    // Se abre solo al cargar la página
+    setTimeout(() => {
+        chatVentana.style.display = 'flex';
+    }, 1500);
+
+    // ── FLUJO ──────────────────────────────────────────
+
+    function iniciarConversacion() {
+        respuestas = { nombre: null, presupuesto: null, genero: null, formato: null };
+        chatMensajes.innerHTML = '';
+
+        mensajeBot('¡Hola! Soy <strong>Lara</strong> 🤖, la asistente de BeatDrop. ¿En qué te puedo ayudar hoy?');
+        mostrarOpciones([
+            { label: '🎵 Recomiéndame música',       valor: 'recomendar' },
+            { label: '🛒 Dudas sobre mi pedido',     valor: 'pedido' },
+            { label: '📦 ¿Cómo funciona el envío?',  valor: 'envio' },
+        ], (val) => {
+            if (val === 'recomendar') {
+                mensajeBot('¡Genial! Voy a ayudarte a encontrar algo. ¿Cómo te llamas?');
+                mostrarInput('Tu nombre...', (nombre) => {
+                    respuestas.nombre = nombre;
+                    mensajeBot(`¡Encantada, <strong>${nombre}</strong>! 😊 ¿Cuál es tu presupuesto?`);
+                    mostrarOpciones([
+                        { label: 'Menos de $25',    valor: [0, 24.99] },
+                        { label: 'Entre $25 y $30', valor: [25, 30] },
+                        { label: 'Más de $30',      valor: [30.01, 9999] },
+                    ], (val) => {
+                        respuestas.presupuesto = val;
+                        preguntarGenero();
+                    });
+                });
+            } else if (val === 'pedido') {
+                mensajeBot('Para consultas sobre pedidos puedes escribirnos a <strong>info@beatdrop.es</strong> o llamar al <strong>+34 912 345 678</strong>. ¡Te atendemos encantadas! 😊');
+                preguntarSiMasAyuda();
+            } else if (val === 'envio') {
+                mensajeBot('Los pedidos se procesan en <strong>24-48 horas</strong> y el envío tarda entre <strong>3 y 5 días hábiles</strong>. ¡El envío es gratuito a partir de $50! 🚚');
+                preguntarSiMasAyuda();
+            }
+        });
+    }
+
+    function preguntarGenero() {
+        mensajeBot(`Perfecto, ${respuestas.nombre}. ¿Qué género te gusta más?`);
+        mostrarOpciones([
+            { label: '🎤 Hip-Hop / Rap', valor: 'Hip-Hop' },
+            { label: '🎶 R&B / Soul',    valor: 'R&B' },
+            { label: '🎸 Pop',           valor: 'Pop' },
+            { label: '✨ Cualquiera',    valor: null },
+        ], (val) => {
+            respuestas.genero = val;
+            preguntarFormato();
+        });
+    }
+
+    function preguntarFormato() {
+        mensajeBot('Casi listo... ¿tienes preferencia de formato?');
+        mostrarOpciones([
+            { label: '💿 Vinilo',        valor: 'Vinilo' },
+            { label: '📀 CD / Cassette', valor: 'CD' },
+            { label: '🎵 Me da igual',   valor: null },
+        ], (val) => {
+            respuestas.formato = val;
+            mostrarRecomendaciones();
+        });
+    }
+
+    function mostrarRecomendaciones() {
+        mensajeBot('Buscando algo para ti... 🔍');
+
+        setTimeout(() => {
+            const [min, max] = respuestas.presupuesto;
+
+            let resultados = catalogoBot.filter(p => {
+                const okPrecio  = p.precio >= min && p.precio <= max;
+                const okGenero  = !respuestas.genero  || p.genero === respuestas.genero;
+                const okFormato = !respuestas.formato || p.formato.includes(respuestas.formato);
+                return okPrecio && okGenero && okFormato;
+            });
+
+            if (resultados.length === 0 && respuestas.genero) {
+                resultados = catalogoBot.filter(p => p.precio >= min && p.precio <= max);
+                mensajeBot(`No encontré algo exacto, ${respuestas.nombre}, pero dentro de tu presupuesto tienes estas opciones:`);
+            } else if (resultados.length > 0) {
+                mensajeBot(`¡Mira lo que encontré para ti, ${respuestas.nombre}! 🎉`);
+            }
+
+            if (resultados.length === 0) {
+                mensajeBot('Hmm, no hay nada disponible para ese perfil ahora mismo. 😕');
+            } else {
+                resultados.slice(0, 3).forEach(p => mostrarProducto(p));
+            }
+
+            setTimeout(() => preguntarSiMasAyuda(), 500);
+
+        }, 700);
+    }
+
+    function preguntarSiMasAyuda() {
+        mensajeBot('¿Hay algo más en lo que pueda ayudarte?');
+        mostrarOpciones([
+            { label: '🔄 Sí, preguntarle otra cosa', valor: 'reiniciar' },
+            { label: '👋 No, ¡gracias Lara!',        valor: 'salir' },
+        ], (val) => {
+            if (val === 'reiniciar') {
+                iniciarConversacion();
+            } else {
+                const despedida = respuestas.nombre
+                    ? `¡Hasta luego, ${respuestas.nombre}! 🎵 Espero verte pronto por aquí.`
+                    : '¡Hasta luego! 🎵 Espero verte pronto por aquí.';
+                mensajeBot(despedida);
+            }
+        });
+    }
+
+    // ── UTILIDADES ─────────────────────────────────────
+
+    function mensajeBot(html) {
+        const div = document.createElement('div');
+        div.className = 'chat-msg bot';
+        div.innerHTML = `
+            <span class="chat-avatar">🤖</span>
+            <div class="chat-burbuja">${html}</div>
+        `;
+        chatMensajes.appendChild(div);
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+    }
+
+    function mensajeUsuario(texto) {
+        const div = document.createElement('div');
+        div.className = 'chat-msg user';
+        div.innerHTML = `<div class="chat-burbuja">${texto}</div>`;
+        chatMensajes.appendChild(div);
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+    }
+
+    function mostrarInput(placeholder, callback) {
+        const contenedor = document.createElement('div');
+        contenedor.className = 'chat-input-wrap';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = placeholder;
+        input.className = 'chat-input-texto';
+
+        const btn = document.createElement('button');
+        btn.textContent = 'Enviar';
+        btn.className = 'chat-input-btn';
+
+        const enviar = () => {
+            const valor = input.value.trim();
+            if (!valor) return;
+            contenedor.remove();
+            mensajeUsuario(valor);
+            callback(valor);
+        };
+
+        btn.addEventListener('click', enviar);
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') enviar(); });
+
+        contenedor.appendChild(input);
+        contenedor.appendChild(btn);
+        chatMensajes.appendChild(contenedor);
+        input.focus();
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+    }
+
+    function mostrarOpciones(opciones, callback) {
+        const contenedor = document.createElement('div');
+        contenedor.className = 'chat-opciones';
+
+        opciones.forEach(op => {
+            const btn = document.createElement('button');
+            btn.textContent = op.label;
+            btn.addEventListener('click', () => {
+                contenedor.remove();
+                mensajeUsuario(op.label);
+                callback(op.valor);
+            });
+            contenedor.appendChild(btn);
+        });
+
+        chatMensajes.appendChild(contenedor);
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+    }
+
+    function mostrarProducto(p) {
+        const div = document.createElement('div');
+        div.className = 'chat-msg bot';
+        div.innerHTML = `
+            <span class="chat-avatar">🤖</span>
+            <div class="chat-burbuja">
+                <div class="bot-producto">
+                    <img src="${p.img}" alt="${p.nombre}">
+                    <div class="bot-producto-info">
+                        <strong>${p.nombre}</strong>
+                        <span>${p.genero} · ${p.formato}</span>
+                        <span class="bot-precio">$${p.precio.toFixed(2)}</span>
+                        <button class="bot-btn-carrito">🛒 Añadir al carrito</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        div.querySelector('.bot-btn-carrito').addEventListener('click', (e) => {
+            agregarAlCarrito(p);
+            e.target.textContent = '✓ Añadido';
+            e.target.disabled = true;
+            e.target.style.backgroundColor = '#28a745';
+            e.target.style.borderColor = '#28a745';
+            e.target.style.color = 'white';
+        });
+
+        chatMensajes.appendChild(div);
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+    }
+
+    function agregarAlCarrito(p) {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const id = p.nombre.replace(/\s+/g, '-').toLowerCase();
+        const existe = carrito.find(item => item.id === id);
+        if (existe) {
+            existe.cantidad++;
+        } else {
+            carrito.push({ id, titulo: p.nombre, precio: p.precio, imagen: p.img, cantidad: 1 });
+        }
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+});

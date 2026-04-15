@@ -1330,3 +1330,40 @@ header nav a:hover::after {
         justify-content: center; /* Centrar items de contacto */
     }
 }
+
+/* Menú hamburguesa móvil */
+#btn-hamburguesa {
+    display: none;
+    background: none;
+    border: none;
+    color: #ff7a00;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px;
+    box-shadow: none;
+    margin: 0;
+}
+
+#btn-hamburguesa:hover {
+    background: none;
+    transform: none;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    #btn-hamburguesa {
+        display: block;
+    }
+
+    header nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        padding: 15px 0;
+    }
+
+    header nav.nav-abierta {
+        display: flex;
+    }
+}

@@ -20,6 +20,7 @@ try {
     <title>Álbumes - BeatDrop</title>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/albumes.css">
+    <link rel="stylesheet" href="css/chatbot.css">
 </head>
 <body>
 
@@ -148,8 +149,23 @@ try {
 <script src="js/login-modal.js"></script>
 <script src="js/albumes-carrito.js"></script>
 <script src="js/filtros.js"></script>
-<script src="js/carrito.js"></script> 
 
+<!-- CHATBOT -->
+<button id="chat-abrir">🤖 Lara</button>
+
+<div id="chat-ventana">
+    <div id="chat-cabecera">
+        <span id="chat-avatar-header">🤖</span>
+        <div id="chat-cabecera-texto">
+            <span id="chat-cabecera-nombre">Lara</span>
+            <span id="chat-cabecera-estado">Asistente de BeatDrop</span>
+        </div>
+        <button id="chat-cerrar">&times;</button>
+    </div>
+    <div id="chat-mensajes"></div>
+</div>
+
+<script src="js/chatbot.js"></script>
 
 </body>
 </html>

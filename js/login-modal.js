@@ -111,8 +111,8 @@ function actualizarInterfazUsuario() {
     if (usuario) {
         if (btnLogin) btnLogin.style.display = 'none';
         if (usuarioHeader) {
-            usuarioHeader.innerText = `Hola, ${usuario}`;
-            usuarioHeader.style.display = 'inline';
+        usuarioHeader.innerHTML = `<a href="perfil.php" style="color:#ff7a00; text-decoration:none;">Hola, ${usuario}</a>`;            
+        usuarioHeader.style.display = 'inline';
         }
         
         // Crear el botón de cerrar sesión si no existe
