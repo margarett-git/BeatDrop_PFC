@@ -39,7 +39,7 @@ function agregarProducto(boton) {
         id: tituloEl.innerText.replace(/\s+/g, '-').toLowerCase(),
         titulo: tituloEl.innerText,
         precio: precio,
-        imagen: imgEl ? imgEl.src : 'img/placeholder.jpg',
+        imagen: imgEl ? imgEl.src : '/img/future-album.jpg',
         cantidad: 1
     };
 

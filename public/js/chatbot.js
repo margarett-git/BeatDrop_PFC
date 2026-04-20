@@ -2,20 +2,20 @@
 // BeatBot "Lara" - Asistente virtual de BeatDrop
 
 const catalogoBot = [
-    { nombre: 'Future – I Never Liked You',                     precio: 25, genero: 'Hip-Hop',     formato: 'Vinilo',   img: 'img/future-album.jpg' },
-    { nombre: 'Young Thug – Business is Business',              precio: 28, genero: 'Hip-Hop',     formato: 'Vinilo',   img: 'img/youngthug-album.jpg' },
-    { nombre: 'Drake – Honestly, Nevermind',                    precio: 26, genero: 'Hip-Hop',     formato: 'Vinilo',   img: 'img/drake-album.jpg' },
-    { nombre: 'Kendrick Lamar – Mr. Morale & The Big Steppers', precio: 30, genero: 'Hip-Hop',     formato: 'Vinilo',   img: 'img/kendrick-album.jpg' },
-    { nombre: 'Tems – For Broken Ears',                         precio: 20, genero: 'R&B',         formato: 'CD',       img: 'img/tems-album.jpg' },
-    { nombre: 'Billie Eilish – Happier Than Ever',              precio: 27, genero: 'Pop',         formato: 'Cassette', img: 'img/billie-album.jpg' },
-    { nombre: 'Ariana Grande – Positions',                      precio: 22, genero: 'Pop',         formato: 'CD',       img: 'img/ariana-album.jpg' },
-    { nombre: 'Taylor Swift – Midnights',                       precio: 24, genero: 'Pop',         formato: 'CD',       img: 'img/taylor-album.jpg' },
-    { nombre: 'Foo Fighters – Medicine at Midnight',            precio: 29, genero: 'Rock',        formato: 'Vinilo',   img: 'img/foofighters-album.jpg' },
-    { nombre: 'Miles Davis – Kind of Blue',                     precio: 20, genero: 'Jazz',        formato: 'CD',       img: 'img/miles-album.jpg' },
-    { nombre: 'Daft Punk – Random Access Memories',             precio: 32, genero: 'Electrónica', formato: 'Vinilo',   img: 'img/daftpunk-album.jpg' },
-    { nombre: 'Metallica – The Black Album',                    precio: 25, genero: 'Metal',       formato: 'CD',       img: 'img/metallica-album.jpg' },
-    { nombre: 'Bob Marley – Legend',                            precio: 27, genero: 'Reggae',      formato: 'Vinilo',   img: 'img/bobmarley-album.jpg' },
-    { nombre: 'B.B. King – Live at the Regal',                  precio: 22, genero: 'Blues',       formato: 'CD',       img: 'img/bbking-album.jpg' },
+    { nombre: 'Future – I Never Liked You',                     precio: 25, genero: 'Hip-Hop',     formato: 'Vinilo',   img: '/img/future-album.jpg' },
+    { nombre: 'Young Thug – Business is Business',              precio: 28, genero: 'Hip-Hop',     formato: 'Vinilo',   img: '/img/youngthug-album.jpg' },
+    { nombre: 'Drake – Honestly, Nevermind',                    precio: 26, genero: 'Hip-Hop',     formato: 'Vinilo',   img: '/img/drake-album.jpg' },
+    { nombre: 'Kendrick Lamar – Mr. Morale & The Big Steppers', precio: 30, genero: 'Hip-Hop',     formato: 'Vinilo',   img: '/img/kendrick-album.jpg' },
+    { nombre: 'Tems – For Broken Ears',                         precio: 20, genero: 'R&B',         formato: 'CD',       img: '/img/tems-album.jpg' },
+    { nombre: 'Billie Eilish – Happier Than Ever',              precio: 27, genero: 'Pop',         formato: 'Cassette', img: '/img/billie-album.jpg' },
+    { nombre: 'Ariana Grande – Positions',                      precio: 22, genero: 'Pop',         formato: 'CD',       img: '/img/ariana-album.jpg' },
+    { nombre: 'Taylor Swift – Midnights',                       precio: 24, genero: 'Pop',         formato: 'CD',       img: '/img/taylor-album.jpg' },
+    { nombre: 'Foo Fighters – Medicine at Midnight',            precio: 29, genero: 'Rock',        formato: 'Vinilo',   img: '/img/foofighters-album.jpg' },
+    { nombre: 'Miles Davis – Kind of Blue',                     precio: 20, genero: 'Jazz',        formato: 'CD',       img: '/img/miles-album.jpg' },
+    { nombre: 'Daft Punk – Random Access Memories',             precio: 32, genero: 'Electrónica', formato: 'Vinilo',   img: '/img/daftpunk-album.jpg' },
+    { nombre: 'Metallica – The Black Album',                    precio: 25, genero: 'Metal',       formato: 'CD',       img: '/img/metallica-album.jpg' },
+    { nombre: 'Bob Marley – Legend',                            precio: 27, genero: 'Reggae',      formato: 'Vinilo',   img: '/img/bobmarley-album.jpg' },
+    { nombre: 'B.B. King – Live at the Regal',                  precio: 22, genero: 'Blues',       formato: 'CD',       img: '/img/bbking-album.jpg' },
 ];
 
 let respuestas = { nombre: null, presupuesto: null, genero: null, formato: null };

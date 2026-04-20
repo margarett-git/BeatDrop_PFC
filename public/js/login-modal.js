@@ -63,13 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // HACEMOS LA PETICIÓN AL BACKEND (PHP)
-                const response = await fetch('procesar_auth.php', {
+                const endpoint = isRegistro ? '/auth/register' : '/auth/login';
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
-                const result = await response.json();
+                const contentType = response.headers.get('content-type') || '';
+                let result = null;
+
+                if (contentType.includes('application/json')) {
+                    result = await response.json();
+                } else {
+                    const raw = await response.text();
+                    throw new Error(`Respuesta no-JSON (${response.status}): ${raw.slice(0, 200)}`);
+                }
 
                 if (result.success) {
                     // ¡ÉXITO! Guardamos en sesión y cerramos modal
@@ -77,10 +86,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(result.message); // Muestra "Registro exitoso" o "Login exitoso"
                     
                     modal.style.display = 'none';
+
+                    if (result.redirect) {
+                        window.location.href = result.redirect;
+                        return;
+                    }
+
                     actualizarInterfazUsuario();
                     
-                    // Si estamos en carrito, recargamos para mostrar el checkout
-                    if (window.location.pathname.includes('carrito.html')) {
+                    // Si estamos en la página del carrito, recargamos para mostrar el checkout
+                    if (window.location.pathname.includes('/carrito')) {
                         location.reload();
                     }
                 } else {
@@ -111,7 +126,7 @@ function actualizarInterfazUsuario() {
     if (usuario) {
         if (btnLogin) btnLogin.style.display = 'none';
         if (usuarioHeader) {
-        usuarioHeader.innerHTML = `<a href="perfil.php" style="color:#ff7a00; text-decoration:none;">Hola, ${usuario}</a>`;            
+        usuarioHeader.innerHTML = `<a href="/perfil" style="color:#ff7a00; text-decoration:none;">Hola, ${usuario}</a>`;            
         usuarioHeader.style.display = 'inline';
         }
         
@@ -142,5 +157,5 @@ function cerrarSesion() {
     // También deberíamos destruir la sesión en PHP en el futuro
     sessionStorage.removeItem('usuarioActivo');
     alert("Has cerrado sesión.");
-    window.location.href = 'index.php'; // Volver al inicio al salir
+    window.location.href = '/'; // Volver al inicio al salir
 }

@@ -1,75 +1,40 @@
-<?php
-session_start();
-require_once 'config/db.php';
-
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: index.php');
-    exit;
-}
-
-$id = $_SESSION['usuario_id'];
-
-$stmt = $pdo->prepare("SELECT nombre, email, rol FROM usuarios WHERE id_usuario = :id");
-$stmt->execute([':id' => $id]);
-$usuario = $stmt->fetch();
-
-$stmt2 = $pdo->prepare("
-    SELECT p.id_pedido, p.fecha_pedido, p.total, p.estado,
-           GROUP_CONCAT(pr.nombre SEPARATOR ', ') AS productos
-    FROM pedidos p
-    JOIN detalles_pedido dp ON dp.id_pedido = p.id_pedido
-    JOIN productos pr       ON pr.id_producto = dp.id_producto
-    WHERE p.id_usuario = :id
-    GROUP BY p.id_pedido
-    ORDER BY p.fecha_pedido DESC
-");
-$stmt2->execute([':id' => $id]);
-$pedidos = $stmt2->fetchAll();
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi perfil - BeatDrop</title>
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/perfil.css">
-    <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/perfil.css">
+    <link rel="stylesheet" href="/css/chatbot.css">
 </head>
 <body>
-
 <header>
     <h1>BeatDrop</h1>
     <nav>
-        <a href="index.php">Inicio</a>
-        <a href="albumes.php">Álbumes</a>
-        <a href="carrito.html">Carrito</a>
-        <span id="usuario-header" style="margin-left: 15px; font-weight: bold; color: #ff7a00;"></span>
+        <a href="/">Inicio</a>
+        <a href="/albumes">Álbumes</a>
+        <a href="/carrito">Carrito</a>
+        <span id="usuario-header"></span>
     </nav>
     <button id="loginBtn">Iniciar sesión / Crear cuenta</button>
 </header>
-
 <main>
     <div class="perfil-container">
-
         <div class="perfil-card">
             <div class="perfil-avatar">👤</div>
             <div class="perfil-datos">
                 <h2><?php echo htmlspecialchars($usuario['nombre']); ?></h2>
                 <p>📧 <?php echo htmlspecialchars($usuario['email']); ?></p>
-                <span class="rol-badge">
-                    <?php echo $usuario['rol'] === 'admin' ? '⚙️ Administrador' : '🎵 Cliente'; ?>
-                </span>
+                <span class="rol-badge"><?php echo $usuario['rol'] === 'admin' ? '⚙️ Administrador' : '🎵 Cliente'; ?></span>
                 <br>
-                <form method="POST" action="cerrar_sesion.php" style="display:inline;">
+                <form method="POST" action="/auth/logout" style="display:inline;">
                     <button type="submit" class="btn-cerrar-sesion">Cerrar sesión</button>
                 </form>
             </div>
         </div>
-
         <div class="perfil-seccion">
             <h3>Historial de pedidos</h3>
-
             <?php if (count($pedidos) > 0): ?>
                 <table class="tabla-pedidos">
                     <thead>
@@ -97,9 +62,7 @@ $pedidos = $stmt2->fetchAll();
                                         ];
                                         $e = $estados[$pedido['estado']] ?? ['clase' => '', 'texto' => $pedido['estado']];
                                     ?>
-                                    <span class="estado-badge <?php echo $e['clase']; ?>">
-                                        <?php echo $e['texto']; ?>
-                                    </span>
+                                    <span class="estado-badge <?php echo $e['clase']; ?>"><?php echo $e['texto']; ?></span>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -108,14 +71,12 @@ $pedidos = $stmt2->fetchAll();
             <?php else: ?>
                 <div class="sin-pedidos">
                     <p>Todavía no tienes ningún pedido.</p>
-                    <a href="albumes.php" class="btn-ir-tienda">🎵 Ir a la tienda</a>
+                    <a href="/albumes" class="btn-ir-tienda">🎵 Ir a la tienda</a>
                 </div>
             <?php endif; ?>
         </div>
-
     </div>
 </main>
-
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-info">
@@ -133,9 +94,7 @@ $pedidos = $stmt2->fetchAll();
     </div>
     <div class="footer-bottom">© 2026 BeatDrop. Todos los derechos reservados.</div>
 </footer>
-
-<script src="js/login-modal.js"></script>
-
+<script src="/js/login-modal.js"></script>
 <button id="chat-abrir">🤖 Lara</button>
 <div id="chat-ventana">
     <div id="chat-cabecera">
@@ -148,7 +107,6 @@ $pedidos = $stmt2->fetchAll();
     </div>
     <div id="chat-mensajes"></div>
 </div>
-<script src="js/chatbot.js"></script>
-
+<script src="/js/chatbot.js"></script>
 </body>
 </html>

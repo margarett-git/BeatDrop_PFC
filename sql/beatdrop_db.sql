@@ -128,8 +128,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `email`, `password`, `rol`, `direccion_envio`) VALUES
-(3, 'mar', 'mar@correo.com', '$2y$10$VOVTXU8YuLrObSH3XspUv.lDTt960KCxpWpnCu3TXt5DqtomJnwWy', 'cliente', NULL),
-(4, 'mar', 'mar@email.com', '$2y$10$PsJgz32w4r3aUDvjZtOiXeGEMr9h85FTOmrZAPTK5N5/zLIK7cL3G', 'cliente', NULL);
+(9, 'Admin BeatDrop', 'admin@beatdrop.com', '$2y$10$Ekbka38pxBwgPUiHzqC6GuIAO3yvMFiKte/HwyFbor1G80OlLzRKS', 'admin', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -202,7 +201,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

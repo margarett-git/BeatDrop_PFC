@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Servidor Web con PHP 8.2 y Apache
   web:

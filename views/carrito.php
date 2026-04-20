@@ -4,55 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito - BeatDrop</title>
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/carrito.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/carrito.css">
 </head>
 <body>
-
 <header>
     <h1>BeatDrop</h1>
     <nav>
-        <a href="index.php">Inicio</a>
-        <a href="albumes.php">Álbumes</a>
-        <a href="carrito.html" class="activo">Carrito 🛒</a>
-        <span id="usuario-header" style="margin-left: 15px; font-weight: bold; color: #ff7a00;"></span>
+        <a href="/">Inicio</a>
+        <a href="/albumes">Álbumes</a>
+        <a href="/carrito" class="activo">Carrito 🛒</a>
+        <span id="usuario-header"></span>
     </nav>
     <button id="loginBtn">Iniciar sesión / Crear cuenta</button>
 </header>
-
 <main>
     <section class="carrito-container">
         <h2>Tu Carrito</h2>
-        
         <div id="carrito-items"></div>
-
         <div id="carrito-resumen">
-          <button id="btn-vaciar" onclick="vaciarCarrito()">
-            Vaciar Carrito 🗑️
-          </button>
-
+          <button id="btn-vaciar" onclick="vaciarCarrito()">Vaciar Carrito 🗑️</button>
           <div id="carrito-total">Total: $0.00</div>
           <button id="btn-finalizar" onclick="checkUserAndCheckout()">Finalizar Compra</button>
         </div>
-
         <div id="formulario-entrega" style="display: none;">
             <h3>Datos de Envío y Contacto</h3>
             <form id="envio-form">
                 <input type="email" id="email-envio" placeholder="Correo electrónico de confirmación" required>
                 <input type="text" id="nombre-envio" placeholder="Nombre completo" required>
                 <input type="text" id="direccion-envio" placeholder="Dirección de entrega (Calle, No., Piso)" required>
-                
                 <div class="form-row">
                     <input type="text" id="ciudad-envio" placeholder="Ciudad" required>
                     <input type="text" id="cp-envio" placeholder="Código Postal" required>
                 </div>
-                
                 <button type="submit" class="btn-pagar">Confirmar Pedido y Pagar</button>
             </form>
         </div>
     </section>
 </main>
-
 <div id="loginModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -66,7 +55,6 @@
     <p id="switchText">¿No tienes cuenta? <span id="switchMode">Regístrate</span></p>
   </div>
 </div>
-
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-info">
@@ -84,10 +72,7 @@
   </div>
   <div class="footer-bottom">© 2026 BeatDrop. Todos los derechos reservados.</div>
 </footer>
-
-<script src="js/login-modal.js"></script>
-<script src="js/carrito.js"></script>
-
-
+<script src="/js/login-modal.js"></script>
+<script src="/js/carrito.js"></script>
 </body>
 </html>
