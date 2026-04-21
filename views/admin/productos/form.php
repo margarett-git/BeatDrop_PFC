@@ -72,10 +72,7 @@
             <input name="formato" value="<?php echo htmlspecialchars($producto['formato'] ?? ''); ?>">
         </div>
 
-        <div style="margin-top:10px;">
-            <label>Talla (si aplica)</label><br>
-            <input name="talla" value="<?php echo htmlspecialchars($producto['talla'] ?? ''); ?>">
-        </div>
+        <!-- Talla element deleted per merchandising removal -->
 
         <div style="margin-top:14px;">
             <button type="submit"><?php echo $modo === 'editar' ? 'Guardar cambios' : 'Crear producto'; ?></button>

@@ -70,6 +70,39 @@ class AdminProductosController {
         redirect('/admin/productos');
     }
 
+    public function agregarStock($id): void {
+        if (!is_post()) {
+            http_response_code(405);
+            json_response(['error' => 'Método no permitido'], 405);
+            return;
+        }
+
+        header('Content-Type: application/json');
+        
+        $id = (int)$id;
+        $input = json_decode(file_get_contents('php://input'), true) ?? [];
+        $cantidad = (int)($input['cantidad'] ?? 0);
+
+        if ($cantidad === 0) {
+            json_response(['error' => 'Cantidad inválida'], 400);
+            return;
+        }
+
+        $producto = $this->productoModel->obtenerPorId($id);
+        if (!$producto) {
+            json_response(['error' => 'Producto no encontrado'], 404);
+            return;
+        }
+
+        $nuevoStock = (int)($producto['stock'] ?? 0) + $cantidad;
+        if ($nuevoStock < 0) {
+            $nuevoStock = 0;
+        }
+        $this->productoModel->actualizar($id, ['stock' => $nuevoStock]);
+        
+        json_response(['success' => true, 'nuevo_stock' => $nuevoStock]);
+    }
+
     private function leerFormularioProducto(array $input): array {
         $idCategoria = trim((string)($input['id_categoria'] ?? ''));
         $idCategoria = $idCategoria === '' ? null : (int)$idCategoria;
@@ -94,7 +127,6 @@ class AdminProductosController {
             'imagen_url' => $imagenUrl,
             'genero' => trim((string)($input['genero'] ?? '')) ?: null,
             'formato' => trim((string)($input['formato'] ?? '')) ?: null,
-            'talla' => trim((string)($input['talla'] ?? '')) ?: null,
         ];
     }
 }
