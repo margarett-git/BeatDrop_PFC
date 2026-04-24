@@ -20,6 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function normalizarTextoCarrito(texto) {
+    const value = String(texto || '');
+    return value
+        .replace(/Ã¢â‚¬â€œ|â€“/g, '-')
+        .replace(/ÃƒÂ³|Ã³/g, 'o')
+        .replace(/Ã¡/g, 'a')
+        .replace(/Ã©/g, 'e')
+        .replace(/Ã­/g, 'i')
+        .replace(/Ãº/g, 'u')
+        .replace(/Ã±/g, 'n')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
 function pintarCarrito() {
     const contenedor = document.getElementById('carrito-items');
     const totalElemento = document.getElementById('carrito-total');
@@ -27,6 +41,20 @@ function pintarCarrito() {
     const btnVaciar = document.getElementById('btn-vaciar');
     
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let carritoActualizado = false;
+
+    carrito = carrito.map((item) => {
+        const tituloNormalizado = normalizarTextoCarrito(item.titulo);
+        if (tituloNormalizado !== item.titulo) {
+            carritoActualizado = true;
+            return { ...item, titulo: tituloNormalizado };
+        }
+        return item;
+    });
+
+    if (carritoActualizado) {
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
 
     if (!contenedor) return;
     contenedor.innerHTML = '';

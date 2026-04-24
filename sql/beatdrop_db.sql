@@ -128,7 +128,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `email`, `password`, `rol`, `direccion_envio`) VALUES
-(9, 'Admin BeatDrop', 'admin@beatdrop.com', '$2y$10$Ekbka38pxBwgPUiHzqC6GuIAO3yvMFiKte/HwyFbor1G80OlLzRKS', 'admin', NULL);
+(9, 'Admin BeatDrop', 'beatdroptfg@gmail.com', '$2y$10$Ekbka38pxBwgPUiHzqC6GuIAO3yvMFiKte/HwyFbor1G80OlLzRKS', 'admin', NULL);
 
 --
 -- Índices para tablas volcadas

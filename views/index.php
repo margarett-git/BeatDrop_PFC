@@ -106,14 +106,27 @@
     <div class="footer-bottom">© 2026 BeatDrop. Todos los derechos reservados.</div>
 </footer>
 <script src="/js/login-modal.js"></script>
+<script src="/js/catalog-sync.js"></script>
 <script src="/js/albumes-carrito.js"></script>
 <script src="/js/carrito.js"></script>
 <script src="/js/menu.js"></script>
-<button id="chat-abrir">BeatBot</button>
-<div id="chat-ventana">
+<button id="chat-abrir" type="button" aria-controls="chat-ventana" aria-expanded="false">
+    <span class="chat-launcher-mark">BD</span>
+    <span class="chat-launcher-copy">
+        <strong>BeatBot</strong>
+        <span>Recomendaciones al instante</span>
+    </span>
+</button>
+<div id="chat-ventana" aria-hidden="true">
     <div id="chat-cabecera">
-        <span>Asistente BeatDrop</span>
-        <button id="chat-cerrar">&times;</button>
+        <div class="chat-brand">
+            <div class="chat-brand-mark">BD</div>
+            <div id="chat-cabecera-texto">
+                <span id="chat-cabecera-nombre">Lara</span>
+                <span id="chat-cabecera-estado">Curadora musical de BeatDrop</span>
+            </div>
+        </div>
+        <button id="chat-cerrar" type="button" aria-label="Cerrar chat">&times;</button>
     </div>
     <div id="chat-mensajes"></div>
 </div>

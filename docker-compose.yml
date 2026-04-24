@@ -4,6 +4,10 @@ services:
     build: .  # Esto le dice a Docker que use el Dockerfile de esta carpeta
     ports:
       - "8000:80"
+    environment:
+      ADMIN_EMAIL: "${ADMIN_EMAIL}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
+      ADMIN_NAME: "${ADMIN_NAME}"
     volumes:
       - ./:/var/www/html/
     depends_on:
@@ -31,6 +35,19 @@ services:
       PMA_HOST: db
     depends_on:
       - db
+
+  n8n:
+    image: n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    environment:
+      GENERIC_TIMEZONE: "Europe/Madrid"
+      N8N_BASIC_AUTH_ACTIVE: "true"
+      N8N_BASIC_AUTH_USER: "admin"
+      N8N_BASIC_AUTH_PASSWORD: "admin"
+      SENDGRID_API_KEY: "${SENDGRID_API_KEY}"
+    volumes:
+      - ./n8n:/home/node/.n8n
 
 volumes:
   db_data:

@@ -95,15 +95,23 @@
     <div class="footer-bottom">© 2026 BeatDrop. Todos los derechos reservados.</div>
 </footer>
 <script src="/js/login-modal.js"></script>
-<button id="chat-abrir">🤖 Lara</button>
-<div id="chat-ventana">
+<button id="chat-abrir" type="button" aria-controls="chat-ventana" aria-expanded="false">
+    <span class="chat-launcher-mark">BD</span>
+    <span class="chat-launcher-copy">
+        <strong>Lara</strong>
+        <span>Ayuda personalizada</span>
+    </span>
+</button>
+<div id="chat-ventana" aria-hidden="true">
     <div id="chat-cabecera">
-        <span id="chat-avatar-header">🤖</span>
-        <div id="chat-cabecera-texto">
-            <span id="chat-cabecera-nombre">Lara</span>
-            <span id="chat-cabecera-estado">Asistente de BeatDrop</span>
+        <div class="chat-brand">
+            <div class="chat-brand-mark">BD</div>
+            <div id="chat-cabecera-texto">
+                <span id="chat-cabecera-nombre">Lara</span>
+                <span id="chat-cabecera-estado">Asistente de BeatDrop</span>
+            </div>
         </div>
-        <button id="chat-cerrar">&times;</button>
+        <button id="chat-cerrar" type="button" aria-label="Cerrar chat">&times;</button>
     </div>
     <div id="chat-mensajes"></div>
 </div>

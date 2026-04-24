@@ -101,6 +101,26 @@
 <script src="/js/login-modal.js"></script>
 <script src="/js/albumes-carrito.js"></script>
 <script src="/js/filtros.js"></script>
+<button id="chat-abrir" type="button" aria-controls="chat-ventana" aria-expanded="false">
+  <span class="chat-launcher-mark">BD</span>
+  <span class="chat-launcher-copy">
+    <strong>BeatBot</strong>
+    <span>Encuentra tu proximo album</span>
+  </span>
+</button>
+<div id="chat-ventana" aria-hidden="true">
+  <div id="chat-cabecera">
+    <div class="chat-brand">
+      <div class="chat-brand-mark">BD</div>
+      <div id="chat-cabecera-texto">
+        <span id="chat-cabecera-nombre">Lara</span>
+        <span id="chat-cabecera-estado">Asistente de descubrimiento</span>
+      </div>
+    </div>
+    <button id="chat-cerrar" type="button" aria-label="Cerrar chat">&times;</button>
+  </div>
+  <div id="chat-mensajes"></div>
+</div>
 <script src="/js/chatbot.js"></script>
 </body>
 </html>

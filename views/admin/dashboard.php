@@ -5,7 +5,7 @@ $productos = $pdo->query(
     'SELECT p.*, c.nombre_categoria
      FROM productos p
      LEFT JOIN categorias c ON c.id_categoria = p.id_categoria
-     ORDER BY p.id_producto ASC'
+     ORDER BY p.id_producto DESC'
 )->fetchAll();
 
 $pedidos = $pdo->query(
@@ -51,13 +51,13 @@ foreach ($productos as $p) {
             <div class="subtitle">Admin</div>
         </div>
 
-        <nav class="admin-nav" aria-label="Navegación del panel">
+        <nav class="admin-nav" aria-label="Navegacion del panel">
             <a href="#dashboard" data-view-link="dashboard" class="is-active">
                 <span>Dashboard</span>
             </a>
             <a href="#productos" data-view-link="productos">
                 <span>Productos</span>
-                <span class="nav-count"><?php echo (int)$totalProductos; ?></span>
+                <span class="nav-count" data-product-count><?php echo (int)$totalProductos; ?></span>
             </a>
             <a href="#pedidos" data-view-link="pedidos">
                 <span>Pedidos</span>
@@ -70,7 +70,7 @@ foreach ($productos as $p) {
         </nav>
 
         <div class="admin-sidebar-footer">
-            <a class="btn btn-danger btn-full" href="../../controllers/logout.php">Cerrar sesión</a>
+            <a class="btn btn-danger btn-full" href="/auth/logout">Cerrar sesion</a>
         </div>
     </aside>
 
@@ -83,13 +83,13 @@ foreach ($productos as $p) {
             <section class="view is-active" id="view-dashboard" data-view-section="dashboard" aria-label="Dashboard">
                 <section class="admin-hero">
                     <h1>Dashboard</h1>
-                    <p>Gestiona el catálogo musical (vinilos / cassettes) con cambios rápidos, sin fricción.</p>
+                    <p>Gestiona el catalogo musical con cambios rapidos y sin salir del panel.</p>
                 </section>
 
                 <section class="admin-grid" aria-label="Resumen">
                     <article class="card">
                         <h2>Productos</h2>
-                        <p><strong><?php echo (int)$totalProductos; ?></strong> en catálogo. <span class="text-muted"><?php echo (int)$stockBajo; ?> con stock bajo.</span></p>
+                        <p><strong data-product-count><?php echo (int)$totalProductos; ?></strong> en catalogo. <span class="text-muted"><span data-low-stock-count><?php echo (int)$stockBajo; ?></span> con stock bajo.</span></p>
                         <div class="card-actions">
                             <button class="btn btn-primary" type="button" data-action="go-view" data-target="productos">Gestionar</button>
                         </div>
@@ -97,7 +97,7 @@ foreach ($productos as $p) {
 
                     <article class="card">
                         <h2>Pedidos</h2>
-                        <p><strong><?php echo (int)$totalPedidos; ?></strong> recientes. Cambia estados rápido para mantener operaciones al día.</p>
+                        <p><strong><?php echo (int)$totalPedidos; ?></strong> recientes. Cambia estados rapido para mantener operaciones al dia.</p>
                         <div class="card-actions">
                             <button class="btn btn-primary" type="button" data-action="go-view" data-target="pedidos">Ver pedidos</button>
                         </div>
@@ -117,10 +117,10 @@ foreach ($productos as $p) {
                 <div class="view-header">
                     <div>
                         <h1>Productos</h1>
-                        <p class="text-muted">Editar y eliminar es instantáneo. Usa el modal para crear o ajustar stock/precio.</p>
+                        <p class="text-muted">Puedes crear, editar, borrar y ajustar stock sin salir del dashboard.</p>
                     </div>
                     <div class="view-actions">
-                        <button class="btn btn-primary" type="button" data-action="open-product-modal" data-mode="create">Añadir producto</button>
+                        <button class="btn btn-primary" type="button" data-action="open-product-modal" data-mode="create">Anadir producto</button>
                     </div>
                 </div>
 
@@ -130,7 +130,7 @@ foreach ($productos as $p) {
                         <tr>
                             <th class="sortable asc" data-sort="id">ID</th>
                             <th class="sortable" data-sort="nombre">Producto</th>
-                            <th class="sortable" data-sort="categoria">Categoría</th>
+                            <th class="sortable" data-sort="categoria">Categoria</th>
                             <th class="sortable" data-sort="precio">Precio</th>
                             <th class="sortable" data-sort="stock">Stock</th>
                             <th class="th-actions">Acciones</th>
@@ -152,17 +152,27 @@ foreach ($productos as $p) {
                             ];
                             $payloadJson = htmlspecialchars(json_encode($payload, JSON_UNESCAPED_UNICODE), ENT_QUOTES, 'UTF-8');
                             $stock = (int)($p['stock'] ?? 0);
+                            $imagen = ltrim((string)($p['imagen_url'] ?? ''), '/');
                             ?>
                             <tr class="row" data-row data-product-id="<?php echo (int)$p['id_producto']; ?>">
                                 <td class="cell-muted">#<?php echo (int)$p['id_producto']; ?></td>
-                                <td class="cell-strong"><?php echo htmlspecialchars($p['nombre']); ?></td>
-                                <td class="cell-muted"><?php echo htmlspecialchars($p['nombre_categoria'] ?? ''); ?></td>
-                                <td class="cell-strong"><?php echo number_format((float)$p['precio'], 2); ?> €</td>
+                                <td class="cell-strong">
+                                    <div class="product-cell">
+                                        <?php if ($imagen !== ''): ?>
+                                            <img src="/<?php echo htmlspecialchars($imagen); ?>" alt="<?php echo htmlspecialchars((string)$p['nombre']); ?>" class="product-thumb">
+                                        <?php else: ?>
+                                            <div class="product-thumb product-thumb-placeholder">Sin foto</div>
+                                        <?php endif; ?>
+                                        <span><?php echo htmlspecialchars((string)$p['nombre']); ?></span>
+                                    </div>
+                                </td>
+                                <td class="cell-muted"><?php echo htmlspecialchars((string)($p['nombre_categoria'] ?? '')); ?></td>
+                                <td class="cell-strong"><?php echo number_format((float)$p['precio'], 2); ?> EUR</td>
                                 <td>
                                     <span class="stock-value <?php echo $stock <= 0 ? 'stock-out' : ($stock <= 3 ? 'stock-low' : 'stock-ok'); ?>">
                                         <?php echo $stock; ?>
                                     </span>
-                                    <button type="button" class="stock-btn" data-action="stock-change" data-delta="-1" title="Reducir stock">−</button>
+                                    <button type="button" class="stock-btn" data-action="stock-change" data-delta="-1" title="Reducir stock">-</button>
                                     <button type="button" class="stock-btn" data-action="stock-change" data-delta="1" title="Aumentar stock">+</button>
                                 </td>
                                 <td class="td-actions">
@@ -184,7 +194,7 @@ foreach ($productos as $p) {
                 <div class="view-header">
                     <div>
                         <h1>Pedidos</h1>
-                        <p class="text-muted">Estados con color para escaneo rápido. (La actualización de estado en BD se implementa en backend.)</p>
+                        <p class="text-muted">Estados con color para escaneo rapido.</p>
                     </div>
                 </div>
 
@@ -204,9 +214,9 @@ foreach ($productos as $p) {
                             <?php $estado = (string)($p['estado'] ?? 'pendiente'); ?>
                             <tr>
                                 <td class="cell-muted">#<?php echo (int)$p['id_pedido']; ?></td>
-                                <td class="cell-strong"><?php echo htmlspecialchars($p['usuario_nombre'] ?? ''); ?> <span class="cell-muted"><?php echo htmlspecialchars($p['usuario_email'] ?? ''); ?></span></td>
+                                <td class="cell-strong"><?php echo htmlspecialchars((string)($p['usuario_nombre'] ?? '')); ?> <span class="cell-muted"><?php echo htmlspecialchars((string)($p['usuario_email'] ?? '')); ?></span></td>
                                 <td class="cell-muted"><?php echo htmlspecialchars((string)($p['fecha_pedido'] ?? '')); ?></td>
-                                <td class="cell-strong"><?php echo number_format((float)($p['total'] ?? 0), 2); ?> €</td>
+                                <td class="cell-strong"><?php echo number_format((float)($p['total'] ?? 0), 2); ?> EUR</td>
                                 <td>
                                     <select class="status-select" data-status value="<?php echo htmlspecialchars($estado); ?>">
                                         <option value="pendiente" <?php echo $estado === 'pendiente' ? 'selected' : ''; ?>>Pendiente</option>
@@ -244,8 +254,8 @@ foreach ($productos as $p) {
                             <?php $rol = (string)($u['rol'] ?? 'cliente'); ?>
                             <tr>
                                 <td class="cell-muted">#<?php echo (int)$u['id_usuario']; ?></td>
-                                <td class="cell-strong"><?php echo htmlspecialchars($u['nombre'] ?? ''); ?></td>
-                                <td class="cell-muted"><?php echo htmlspecialchars($u['email'] ?? ''); ?></td>
+                                <td class="cell-strong"><?php echo htmlspecialchars((string)($u['nombre'] ?? '')); ?></td>
+                                <td class="cell-muted"><?php echo htmlspecialchars((string)($u['email'] ?? '')); ?></td>
                                 <td>
                                     <span class="pill <?php echo $rol === 'admin' ? 'pill-admin' : 'pill-user'; ?>">
                                         <?php echo htmlspecialchars($rol); ?>
@@ -261,59 +271,61 @@ foreach ($productos as $p) {
     </div>
 </div>
 
-<!-- Modal Añadir/Editar Producto -->
 <div class="modal-backdrop" id="productModal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
         <div class="modal-header">
-            <h2 class="modal-title" id="productModalTitle">Añadir producto</h2>
+            <h2 class="modal-title" id="productModalTitle">Anadir producto</h2>
             <button type="button" class="btn btn-ghost btn-icon" data-action="close-product-modal" aria-label="Cerrar">
-                ×
+                X
             </button>
         </div>
         <div class="modal-body">
             <form id="productForm" method="post" action="/admin/productos/crear" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(csrf_token()); ?>">
                 <input type="hidden" name="id_categoria" id="fieldIdCategoria" value="1">
+                <input type="hidden" name="imagen_url_actual" id="fieldImagenActual" value="">
 
                 <div class="form-grid">
                     <div class="form-field col-8">
-                        <label for="fieldNombre">Título</label>
-                        <input id="fieldNombre" name="nombre" required placeholder="Ej: Future – I Never Liked You">
+                        <label for="fieldNombre">Titulo</label>
+                        <input id="fieldNombre" name="nombre" required placeholder="Ej: Future - I Never Liked You">
                     </div>
 
-                    <div class="form-field col-4">
-                        <!-- Tipo de producto eliminado al retirar merchandising -->
+                    <div class="form-field col-4"></div>
+
+                    <div class="form-field col-12">
+                        <label for="fieldImagenFile">Portada del album (JPG)</label>
+                        <input id="fieldImagenFile" name="imagen_archivo" type="file" accept=".jpg,.jpeg,image/jpeg">
+                        <div class="hint">Solo se permiten archivos JPG o JPEG.</div>
+                        <div class="image-preview is-hidden" id="fieldImagenPreviewWrap">
+                            <img id="fieldImagenPreview" src="" alt="Vista previa de la portada">
+                            <p id="fieldImagenPreviewText" class="hint"></p>
+                        </div>
                     </div>
 
                     <div class="form-field col-12">
-                        <label for="fieldImagen">Imagen (URL o ruta)</label>
-                        <input id="fieldImagen" name="imagen_url" type="text" placeholder="Ej: img/future.jpg">
-                        <div class="hint">Ruta de la imagen del producto.</div>
-                    </div>
-
-                    <div class="form-field col-12">
-                        <label for="fieldDescripcion">Descripción</label>
-                        <textarea id="fieldDescripcion" name="descripcion" placeholder="Descripción corta del producto..."></textarea>
+                        <label for="fieldDescripcion">Descripcion</label>
+                        <textarea id="fieldDescripcion" name="descripcion" placeholder="Descripcion corta del producto..."></textarea>
                     </div>
 
                     <div class="form-field col-6">
-                        <label for="fieldPrecio">Precio (€)</label>
+                        <label for="fieldPrecio">Precio (EUR)</label>
                         <input id="fieldPrecio" name="precio" type="number" step="0.01" min="0" required value="0">
                     </div>
 
                     <div class="form-field col-6">
                         <label for="fieldStock">Stock</label>
                         <div class="stepper">
-                            <button type="button" class="stepper-btn" data-step="-1" aria-label="Disminuir stock">−</button>
+                            <button type="button" class="stepper-btn" data-step="-1" aria-label="Disminuir stock">-</button>
                             <input id="fieldStock" name="stock" type="number" step="1" min="0" value="0">
                             <button type="button" class="stepper-btn" data-step="1" aria-label="Aumentar stock">+</button>
                         </div>
                     </div>
 
                     <div class="form-field col-6">
-                        <label for="fieldGenero">Género</label>
+                        <label for="fieldGenero">Genero</label>
                         <select id="fieldGenero" name="genero">
-                            <option value="">—</option>
+                            <option value="">-</option>
                             <option value="Hip-Hop">Hip Hop</option>
                             <option value="Pop">Pop</option>
                             <option value="R&B">R&B</option>
@@ -328,7 +340,7 @@ foreach ($productos as $p) {
                     <div class="form-field col-6">
                         <label for="fieldFormato">Formato</label>
                         <select id="fieldFormato" name="formato">
-                            <option value="">—</option>
+                            <option value="">-</option>
                             <option value="Vinilo">Vinilo</option>
                             <option value="Cassette">Cassette</option>
                             <option value="Digital">Digital</option>
@@ -339,7 +351,7 @@ foreach ($productos as $p) {
 
             <div class="modal-actions">
                 <div class="modal-actions-left">
-                    <form id="productDeleteForm" method="post" action="#" class="inline is-hidden" data-delete-form onsubmit="return confirm('¿Eliminar este producto?');">
+                    <form id="productDeleteForm" method="post" action="#" class="inline is-hidden" data-delete-form>
                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(csrf_token()); ?>">
                         <button type="submit" class="btn btn-danger">Eliminar producto</button>
                     </form>

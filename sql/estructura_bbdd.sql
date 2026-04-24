@@ -63,5 +63,5 @@ VALUES
 -- Insertar un Administrador y un Cliente para probar los roles 
 INSERT INTO usuarios (nombre, email, password, rol) 
 VALUES 
-('Admin BeatDrop', 'admin@beatdrop.com', 'admin123', 'admin'),
+('Admin BeatDrop', 'beatdroptfg@gmail.com', '$2y$10$Ekbka38pxBwgPUiHzqC6GuIAO3yvMFiKte/HwyFbor1G80OlLzRKS', 'admin'),
 ('Usuario Prueba', 'cliente@gmail.com', 'cliente123', 'cliente');

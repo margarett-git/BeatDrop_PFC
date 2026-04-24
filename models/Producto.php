@@ -39,6 +39,17 @@ class Producto {
         return $stmt->fetch();
     }
 
+    public function obtenerPorIdConCategoria(int $id) {
+        $stmt = $this->pdo->prepare(
+            'SELECT p.*, c.nombre_categoria
+             FROM productos p
+             LEFT JOIN categorias c ON c.id_categoria = p.id_categoria
+             WHERE p.id_producto = :id'
+        );
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch();
+    }
+
     public function crear(array $data): int {
         $stmt = $this->pdo->prepare(
             'INSERT INTO productos (id_categoria, nombre, descripcion, precio, stock, imagen_url, genero, formato, talla)
@@ -83,6 +94,18 @@ class Producto {
             ':genero' => $data['genero'],
             ':formato' => $data['formato'],
             ':talla' => $data['talla'],
+        ]);
+    }
+
+    public function actualizarStock(int $id, int $stock): void {
+        $stmt = $this->pdo->prepare(
+            'UPDATE productos
+             SET stock = :stock
+             WHERE id_producto = :id'
+        );
+        $stmt->execute([
+            ':id' => $id,
+            ':stock' => $stock,
         ]);
     }
 
