@@ -140,8 +140,6 @@ function actualizarInterfazUsuario() {
 
 // CERRAR SESIÓN
 function cerrarSesion() {
-    // También deberíamos destruir la sesión en PHP en el futuro
     sessionStorage.removeItem('usuarioActivo');
-    alert("Has cerrado sesión.");
-    window.location.href = '/'; // Volver al inicio al salir
+    window.location.href = '/auth/logout';
 }

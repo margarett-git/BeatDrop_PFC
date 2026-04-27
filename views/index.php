@@ -110,23 +110,17 @@
 <script src="/js/albumes-carrito.js"></script>
 <script src="/js/carrito.js"></script>
 <script src="/js/menu.js"></script>
-<button id="chat-abrir" type="button" aria-controls="chat-ventana" aria-expanded="false">
-    <span class="chat-launcher-mark">BD</span>
-    <span class="chat-launcher-copy">
-        <strong>BeatBot</strong>
-        <span>Recomendaciones al instante</span>
-    </span>
-</button>
-<div id="chat-ventana" aria-hidden="true">
+<button id="chat-abrir" type="button">🤖 Lara</button>
+<div id="chat-ventana">
     <div id="chat-cabecera">
         <div class="chat-brand">
-            <div class="chat-brand-mark">BD</div>
+            <span id="chat-avatar-header">🤖</span>
             <div id="chat-cabecera-texto">
                 <span id="chat-cabecera-nombre">Lara</span>
-                <span id="chat-cabecera-estado">Curadora musical de BeatDrop</span>
+                <span id="chat-cabecera-estado">Asistente de BeatDrop</span>
             </div>
         </div>
-        <button id="chat-cerrar" type="button" aria-label="Cerrar chat">&times;</button>
+        <button id="chat-cerrar" type="button">&times;</button>
     </div>
     <div id="chat-mensajes"></div>
 </div>

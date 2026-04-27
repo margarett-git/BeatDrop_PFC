@@ -13,7 +13,7 @@
     <nav>
         <a href="/">Inicio</a>
         <a href="/albumes">Álbumes</a>
-        <a href="/carrito" class="activo">Carrito 🛒</a>
+        <a href="/carrito" class="activo">Carrito</a>
         <span id="usuario-header"></span>
     </nav>
     <button id="loginBtn">Iniciar sesión / Crear cuenta</button>
@@ -74,5 +74,6 @@
 </footer>
 <script src="/js/login-modal.js"></script>
 <script src="/js/carrito.js"></script>
+<script src=/js/menu.js></script>
 </body>
 </html>
