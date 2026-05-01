@@ -18,3 +18,4 @@ RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" \
 RUN sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
 EXPOSE 80
+CMD bash -c "a2dismod mpm_event 2>/dev/null; a2enmod mpm_prefork 2>/dev/null; apache2-foreground"
