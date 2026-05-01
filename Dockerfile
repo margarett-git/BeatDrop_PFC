@@ -2,11 +2,12 @@
 
 RUN docker-php-ext-install pdo pdo_mysql
 
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-RUN a2dismod mpm_event || true
-RUN a2enmod mpm_prefork || true
-RUN a2enmod rewrite || true
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf \
+    && rm -f /etc/apache2/mods-enabled/mpm_event.load \
+    && rm -f /etc/apache2/mods-enabled/mpm_event.conf \
+    && ln -sf /etc/apache2/mods-available/mpm_prefork.load /etc/apache2/mods-enabled/ \
+    && ln -sf /etc/apache2/mods-available/mpm_prefork.conf /etc/apache2/mods-enabled/ \
+    && a2enmod rewrite
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" \
@@ -15,7 +16,5 @@ RUN sed -ri -e "s!/var/www/html!${APACHE_DOCUMENT_ROOT}!g" \
     /etc/apache2/conf-available/*.conf
 
 RUN sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
-RUN rm -f /etc/apache2/mods-enabled/mpm_event.load /etc/apache2/mods-enabled/mpm_event.conf
 
 EXPOSE 80
-# rebuild
