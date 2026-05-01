@@ -1,0 +1,6 @@
+Panel de administración:
+Email: beatdroptfg@gmail.com
+Contraseña: admin123
+
+Usuario cliente de prueba:
+Puedes registrarte desde la propia web en la opción "Crear cuenta"
